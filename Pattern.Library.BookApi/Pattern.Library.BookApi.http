@@ -1,0 +1,6 @@
+@Pattern.Library.BookApi_HostAddress = http://localhost:5067
+
+GET {{Pattern.Library.BookApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
