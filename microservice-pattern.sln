@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Kafka", "EventBus.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Library.IntegrationEvents", "Pattern\CQRS\CQRS.Library.IntegrationEvents\CQRS.Library.IntegrationEvents.csproj", "{6C250E37-E779-4B27-973A-F6496B1AFDE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Library.BorrowingService", "Pattern\CQRS\CQRS.Library.BorrowingService\CQRS.Library.BorrowingService.csproj", "{E8227E95-7DB7-4BDA-9585-E5A1D43BDBC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{6C250E37-E779-4B27-973A-F6496B1AFDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C250E37-E779-4B27-973A-F6496B1AFDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C250E37-E779-4B27-973A-F6496B1AFDE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8227E95-7DB7-4BDA-9585-E5A1D43BDBC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8227E95-7DB7-4BDA-9585-E5A1D43BDBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8227E95-7DB7-4BDA-9585-E5A1D43BDBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8227E95-7DB7-4BDA-9585-E5A1D43BDBC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,5 +82,6 @@ Global
 		{FC35D79E-20E8-4259-96FF-B62FC6DD9F31} = {C981A3AE-1A72-4D46-B427-F485883F910D}
 		{4C07AD45-74AA-4EE2-B6A5-4B7DB3AFD1A9} = {C981A3AE-1A72-4D46-B427-F485883F910D}
 		{6C250E37-E779-4B27-973A-F6496B1AFDE8} = {C981A3AE-1A72-4D46-B427-F485883F910D}
+		{E8227E95-7DB7-4BDA-9585-E5A1D43BDBC5} = {C981A3AE-1A72-4D46-B427-F485883F910D}
 	EndGlobalSection
 EndGlobal

@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Pattern.Shared\Pattern.Shared.csproj" IsAspireProjectResource="false" />
     <ProjectReference Include="..\Pattern\CQRS\CQRS.Library.BookService\CQRS.Library.BookService.csproj" />
     <ProjectReference Include="..\Pattern\CQRS\CQRS.Library.BorrowerService\CQRS.Library.BorrowerService.csproj" />
+    <ProjectReference Include="..\Pattern\CQRS\CQRS.Library.BorrowingService\CQRS.Library.BorrowingService.csproj" />
   </ItemGroup>
 
 </Project>
