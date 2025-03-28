@@ -1,7 +1,7 @@
-﻿using CQRS.Library.BookService.Infrastructure.Data;
+﻿using CQRS.Library.BorrowerService.Infrastructure.Data;
 using Pattern.Shared;
 
-namespace CQRS.Library.BookService.Bootstraping;
+namespace CQRS.Library.BorrowerService.Bootstraping;
 
 public static class ApplicationServiceExtension
 {
@@ -9,9 +9,9 @@ public static class ApplicationServiceExtension
     {
         builder.AddServiceDefaults();
         builder.Services.AddOpenApi();
-        builder.AddNpgsqlDbContext<BookDbContext>(Consts.DefaultDatabase);
+        builder.AddNpgsqlDbContext<BorrowerDbContext>(Consts.DefaultDatabase);
 
-        
+
         return builder;
     }
 }
