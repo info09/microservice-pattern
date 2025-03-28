@@ -30,7 +30,7 @@ public static class KafkaEventBusExtensions
 
         if(!string.IsNullOrWhiteSpace(topic))
         {
-            builder.Services.AddTransient<IEventPublisher>(service => new KafkaEventPublisher(topic, service.GetRequiredService<IProducer<string, MessageEnvelop>>(), service.GetRequiredService<ILogger>()));
+            builder.Services.AddTransient<IEventPublisher>(service => new KafkaEventPublisher(topic, service.GetRequiredService<IProducer<string, MessageEnvelop>>(), service.GetRequiredService<ILoggerFactory>().CreateLogger($"EventPublisher<{topic}>")));
         }   
     }
 

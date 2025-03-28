@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\..\Pattern.DatabaseMigrationHelpers\Pattern.DatabaseMigrationHelpers.csproj" />
     <ProjectReference Include="..\..\..\Pattern.ServiceDefaults\Pattern.ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\..\Pattern.Shared\Pattern.Shared.csproj" />
+    <ProjectReference Include="..\CQRS.Library.IntegrationEvents\CQRS.Library.IntegrationEvents.csproj" />
   </ItemGroup>
 
 </Project>

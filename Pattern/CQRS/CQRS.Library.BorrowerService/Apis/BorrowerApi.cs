@@ -1,4 +1,5 @@
 ﻿using CQRS.Library.BorrowerService.Infrastructure.Entity;
+using CQRS.Library.IntegrationEvents;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -68,6 +69,15 @@ namespace CQRS.Library.BorrowerService.Apis
             services.Context.Update(existingBorrower);
             await services.Context.SaveChangesAsync();
 
+            await services.EventPublisher.PublishAsync(new BorrowerUpdatedIntegrationEvent
+            {
+                BorrowerId = borrower.Id,
+                Name = borrower.Name,
+                Address = borrower.Address,
+                PhoneNumber = borrower.PhoneNumber,
+                Email = borrower.Email
+            });
+
             return TypedResults.Ok(existingBorrower);
         }
 
@@ -81,6 +91,15 @@ namespace CQRS.Library.BorrowerService.Apis
 
             await services.Context.Borrowers.AddAsync(borrower);
             await services.Context.SaveChangesAsync();
+
+            await services.EventPublisher.PublishAsync(new BorrowerCreatedIntegrationEvent
+            {
+                BorrowerId = borrower.Id,
+                Name = borrower.Name,
+                Address = borrower.Address,
+                PhoneNumber = borrower.PhoneNumber,
+                Email = borrower.Email
+            });
 
             return TypedResults.Ok(borrower);
         }

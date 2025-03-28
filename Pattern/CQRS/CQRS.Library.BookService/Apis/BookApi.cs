@@ -1,4 +1,5 @@
 ﻿using CQRS.Library.BookService.Infrastructure.Entity;
+using CQRS.Library.IntegrationEvents;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -66,6 +67,13 @@ namespace CQRS.Library.BookService.Apis
             services.Context.Update(existingBook);
             await services.Context.SaveChangesAsync();
 
+            await services.EventPublisher.PublishAsync(new BookCreatUpdatedIntegrationEvent
+            {
+                BookId = book.Id,
+                Title = book.Title,
+                Author = book.Author
+            });
+
             return TypedResults.Ok(existingBook);
         }
 
@@ -79,6 +87,13 @@ namespace CQRS.Library.BookService.Apis
 
             await services.Context.Books.AddAsync(book);
             await services.Context.SaveChangesAsync();
+
+            await services.EventPublisher.PublishAsync(new BookCreatedIntegrationEvent
+            {
+                BookId = book.Id,
+                Title = book.Title,
+                Author = book.Author
+            });
 
             return TypedResults.Ok(book);
         }
