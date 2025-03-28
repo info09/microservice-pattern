@@ -14,12 +14,13 @@ namespace Pattern.DatabaseMigrationHelpers
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             var logger = services.GetRequiredService<ILogger<TContext>>();
-            var context = services.GetRequiredService<TContext>();
+            var context = services.GetService<TContext>();
             if (context is not null)
             {
                 try
                 {
                     var dbCreator = context.GetService<IRelationalDatabaseCreator>();
+
                     var strategy = context.Database.CreateExecutionStrategy();
                     await strategy.ExecuteAsync(async () =>
                     {
@@ -29,6 +30,8 @@ namespace Pattern.DatabaseMigrationHelpers
                             await dbCreator.CreateAsync(cancellationToken);
                         }
                     });
+
+
                     logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
                     await strategy.ExecuteAsync(async () =>
                     {
@@ -41,7 +44,6 @@ namespace Pattern.DatabaseMigrationHelpers
                     logger.LogError(ex, "An error occurred while migrating the database used on context {DbContextName}", typeof(TContext).Name);
                 }
             }
-
             return host;
         }
     }

@@ -1,5 +1,7 @@
+using Pattern.AppHost.Extensions;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.CQRS_Library_BookService>("cqrs-library-bookservice");
+builder.AddApplicationServices();
 
 builder.Build().Run();

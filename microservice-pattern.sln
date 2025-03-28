@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Library.BookService", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pattern.DatabaseMigrationHelpers", "Pattern.DatabaseMigrationHelpers\Pattern.DatabaseMigrationHelpers.csproj", "{8E27B933-CB6F-46E2-A992-611F65B85422}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pattern.Shared", "Pattern.Shared\Pattern.Shared.csproj", "{57AF5B4C-A6F2-4863-9E81-E7CC84FE9CC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{8E27B933-CB6F-46E2-A992-611F65B85422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E27B933-CB6F-46E2-A992-611F65B85422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E27B933-CB6F-46E2-A992-611F65B85422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57AF5B4C-A6F2-4863-9E81-E7CC84FE9CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57AF5B4C-A6F2-4863-9E81-E7CC84FE9CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57AF5B4C-A6F2-4863-9E81-E7CC84FE9CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57AF5B4C-A6F2-4863-9E81-E7CC84FE9CC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
