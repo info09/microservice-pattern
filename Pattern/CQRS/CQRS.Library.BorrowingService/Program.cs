@@ -1,6 +1,9 @@
+using CQRS.Library.BorrowingService.Apis;
 using CQRS.Library.BorrowingService.Bootstraping;
 using CQRS.Library.BorrowingService.Infrastructure.Data;
+
 using Pattern.DatabaseMigrationHelpers;
+
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +17,7 @@ app.MapDefaultEndpoints();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi(); 
+    app.MapOpenApi();
     app.MapScalarApiReference(options =>
     {
         options.DefaultFonts = false;
@@ -23,6 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapBorrowingApi();
 
 await app.MigrateDbContextAsync<BorrowingDbContext>();
 
