@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pattern.Shared", "Pattern.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Library.BorrowerService", "Pattern\CQRS\CQRS.Library.BorrowerService\CQRS.Library.BorrowerService.csproj", "{4C07AD45-74AA-4EE2-B6A5-4B7DB3AFD1A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "EventBus\EventBus.csproj", "{8AFD0724-72D7-4571-A20F-BC59FDA2D718}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Kafka", "EventBus.Kafka\EventBus.Kafka.csproj", "{07A06139-3D57-4281-9242-8551B65DB9F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{4C07AD45-74AA-4EE2-B6A5-4B7DB3AFD1A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C07AD45-74AA-4EE2-B6A5-4B7DB3AFD1A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C07AD45-74AA-4EE2-B6A5-4B7DB3AFD1A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AFD0724-72D7-4571-A20F-BC59FDA2D718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AFD0724-72D7-4571-A20F-BC59FDA2D718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AFD0724-72D7-4571-A20F-BC59FDA2D718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AFD0724-72D7-4571-A20F-BC59FDA2D718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07A06139-3D57-4281-9242-8551B65DB9F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A06139-3D57-4281-9242-8551B65DB9F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A06139-3D57-4281-9242-8551B65DB9F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A06139-3D57-4281-9242-8551B65DB9F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,9 @@ public static class ApplicationServiceExtension
         builder.Services.AddOpenApi();
         builder.AddNpgsqlDbContext<BookDbContext>(Consts.DefaultDatabase);
 
-        
+        //builder.AddKafkaProducer
+
+
         return builder;
     }
 }
