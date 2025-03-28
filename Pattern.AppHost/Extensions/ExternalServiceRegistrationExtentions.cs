@@ -46,6 +46,14 @@ public static class ExternalServiceRegistrationExtentions
             .WaitFor(borrowerDb)
             .WaitFor(kafka);
 
+        var borrowingDb = postgres.AddDefaultDatabase<Projects.CQRS_Library_BorrowingService>();
+        var borrowingService = builder.AddProjectWithPostfix<Projects.CQRS_Library_BorrowingService>()
+            .WithEnvironment(Consts.Env_EventPublishingTopics, GetTopicName<Projects.CQRS_Library_BorrowingService>())
+            .WithReference(kafka)
+            .WithReference(borrowingDb, Consts.DefaultDatabase)
+            .WaitFor(borrowingDb)
+            .WaitFor(kafka);
+
         #endregion
         return builder;
     }
@@ -56,7 +64,7 @@ public static class ExternalServiceRegistrationExtentions
         TopicSpecification[] topics = [
             new() { Name = GetTopicName<Projects.CQRS_Library_BookService>(), NumPartitions = 1, ReplicationFactor = 1 },
             new() { Name = GetTopicName<Projects.CQRS_Library_BorrowerService>(), NumPartitions = 1, ReplicationFactor = 1 },
-            //new() { Name = GetTopicName<Projects.CQRS_Library_BorrowingService>(), NumPartitions = 1, ReplicationFactor = 1 },
+            new() { Name = GetTopicName<Projects.CQRS_Library_BorrowingService>(), NumPartitions = 1, ReplicationFactor = 1 },
             //new() { Name = GetTopicName<Projects.Saga_OnlineStore_CatalogService>(), NumPartitions = 1, ReplicationFactor = 1 },
             //new() { Name = GetTopicName<Projects.Saga_OnlineStore_PaymentService>(), NumPartitions = 1, ReplicationFactor = 1 },
             //new() { Name = GetTopicName<Projects.Saga_OnlineStore_InventoryService>(), NumPartitions = 1, ReplicationFactor = 1 },
