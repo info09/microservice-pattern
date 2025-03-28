@@ -10,7 +10,7 @@ namespace EventBus.Kafka;
 
 public static class KafkaEventBusExtensions
 {
-    public static IHostApplicationBuilder AddKafkaProducer(this IHostApplicationBuilder builder, string connectionName)
+    public static IHostApplicationBuilder AddKafkaProducerExtension(this IHostApplicationBuilder builder, string connectionName)
     {
         builder.AddKafkaProducer<string, MessageEnvelop>(connectionName, configureSettings: (settings) =>
         {

@@ -21,6 +21,8 @@
 	</ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\EventBus.Kafka\EventBus.Kafka.csproj" />
+    <ProjectReference Include="..\..\..\EventBus\EventBus.csproj" />
     <ProjectReference Include="..\..\..\Pattern.DatabaseMigrationHelpers\Pattern.DatabaseMigrationHelpers.csproj" />
     <ProjectReference Include="..\..\..\Pattern.ServiceDefaults\Pattern.ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\..\Pattern.Shared\Pattern.Shared.csproj" />
