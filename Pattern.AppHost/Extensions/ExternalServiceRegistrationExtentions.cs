@@ -1,9 +1,13 @@
 ﻿using Confluent.Kafka;
 using Confluent.Kafka.Admin;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
 using Pattern.Shared;
+
+using Projects;
 
 namespace Pattern.AppHost.Extensions;
 
@@ -54,6 +58,18 @@ public static class ExternalServiceRegistrationExtentions
             .WaitFor(borrowingDb)
             .WaitFor(kafka);
 
+        var borrowingHistoryDb = postgres.AddDefaultDatabase<Projects.CQRS_Library_BorrowingHistoryService>();
+        var borrowingHistoryService = builder.AddProjectWithPostfix<Projects.CQRS_Library_BorrowingHistoryService>()
+            .WithEnvironment(Consts.Env_EventConsumingTopics,
+                                string.Join(',', GetTopicName<CQRS_Library_BookService>(), GetTopicName<CQRS_Library_BorrowerService>(), GetTopicName<CQRS_Library_BorrowingService>()))
+            .WithReference(kafka)
+            .WithReference(borrowingHistoryDb, Consts.DefaultDatabase)
+            .WaitFor(borrowingHistoryDb)
+            .WaitFor(kafka);
+
+        bookService.WithParentRelationship(borrowingHistoryService);
+        borrowerService.WithParentRelationship(borrowingHistoryService);
+        borrowingService.WithParentRelationship(borrowingHistoryService);
         #endregion
         return builder;
     }

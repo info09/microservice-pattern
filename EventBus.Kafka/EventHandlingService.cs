@@ -1,7 +1,10 @@
 ﻿using Confluent.Kafka;
+
 using EventBus.Abstractions;
 using EventBus.Event;
+
 using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -16,13 +19,18 @@ public class EventHandlingService : BackgroundService
     private readonly IServiceScopeFactory serviceScopeFactory;
     private readonly ILogger logger;
 
-    public EventHandlingService(IConsumer<string, MessageEnvelop> consumer, EventHandlingWorkerOptions options, IIntegrationEventFactory integrationEventFactory, IServiceScopeFactory serviceScopeFactory, ILoggerFactory loggerFactory)
+    public EventHandlingService(IConsumer<string, MessageEnvelop> consumer,
+       EventHandlingWorkerOptions options,
+       IIntegrationEventFactory integrationEventFactory,
+       IServiceScopeFactory serviceScopeFactory,
+       ILoggerFactory loggerFactory)
     {
         this.consumer = consumer;
         this.options = options;
         this.integrationEventFactory = integrationEventFactory;
         this.serviceScopeFactory = serviceScopeFactory;
-        this.logger = loggerFactory.CreateLogger(options.ServiceName);
+
+        logger = loggerFactory.CreateLogger(options.ServiceName);
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -33,26 +41,37 @@ public class EventHandlingService : BackgroundService
         {
             try
             {
-                consumer!.Subscribe(options.Topics);
+                consumer.Subscribe(options.Topics);
+
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    var consumerResult = consumer!.Consume(100);
-                    if (consumer != null)
+                    try
                     {
-                        using IServiceScope scope = serviceScopeFactory.CreateScope();
-                        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                        await ProcessMessageAsync(mediator, consumerResult.Message.Value, stoppingToken);
+                        var consumeResult = consumer.Consume(100);
+
+                        if (consumeResult != null)
+                        {
+                            using IServiceScope scope = serviceScopeFactory.CreateScope();
+                            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                            await ProcessMessageAsync(mediator, consumeResult.Message.Value, stoppingToken);
+                        }
+                        else
+                        {
+                            await Task.Delay(100, stoppingToken);
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        await Task.Delay(100, stoppingToken);
+                        logger.LogError(ex, "Error consuming message");
                     }
                 }
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error comsuming message");
+                logger.LogError(ex, "Error subscribing to topics");
             }
+
+            await Task.Delay(1000, stoppingToken);
         }
     }
 

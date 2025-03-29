@@ -1,0 +1,6 @@
+@CQRS.Library.BorrowingHistory_HostAddress = http://localhost:5162
+
+GET {{CQRS.Library.BorrowingHistory_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
