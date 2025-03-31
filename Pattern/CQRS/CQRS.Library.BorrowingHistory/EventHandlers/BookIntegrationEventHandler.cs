@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CQRS.Library.BorrowingHistoryService.EventHandlers;
 
-public class BookIntegrationEventHandler(BorrowingHistoryDbContext context, ILogger<BookIntegrationEventHandler> logger) : IRequestHandler<BookCreatedIntegrationEvent>, IRequestHandler<BookCreatUpdatedIntegrationEvent>
+public class BookIntegrationEventHandler(BorrowingHistoryDbContext context, ILogger<BookIntegrationEventHandler> logger) : IRequestHandler<BookCreatedIntegrationEvent>, IRequestHandler<BookUpdatedIntegrationEvent>
 {
     public async Task Handle(BookCreatedIntegrationEvent request, CancellationToken cancellationToken)
     {
@@ -21,7 +21,7 @@ public class BookIntegrationEventHandler(BorrowingHistoryDbContext context, ILog
         await context.SaveChangesAsync();
     }
 
-    public async Task Handle(BookCreatUpdatedIntegrationEvent request, CancellationToken cancellationToken)
+    public async Task Handle(BookUpdatedIntegrationEvent request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Handling book updated event: {bookId}", request.BookId);
         await context.Books.Where(i => i.Id == request.BookId)

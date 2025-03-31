@@ -1,4 +1,5 @@
 ﻿using CQRS.Library.BorrowingService.Infrastructure.Entity;
+using CQRS.Library.IntegrationEvents;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,15 @@ public static class BorrowingApi
         existingBorrowing.ReturnedAt = DateTime.UtcNow;
 
         await services.Context.SaveChangesAsync();
+
+        await services.EventPublisher.PublishAsync(new BookReturnedIntegrationEvent()
+        {
+            BorrowingId = existingBorrowing.Id,
+            BorrowerId = existingBorrowing.BorrowerId,
+            BookId = existingBorrowing.BookId,
+            ReturnedAt = existingBorrowing.ReturnedAt.Value
+        });
+
         return TypedResults.Ok();
     }
 
@@ -74,6 +84,15 @@ public static class BorrowingApi
 
         await services.Context.Borrowings.AddAsync(borrowing);
         await services.Context.SaveChangesAsync();
+
+        await services.EventPublisher.PublishAsync(new BookBorrowedIntegrationEvent()
+        {
+            BorrowingId = borrowing.Id,
+            BorrowerId = borrowing.BorrowerId,
+            BookId = borrowing.BookId,
+            BorrowedAt = borrowing.BorrowedAt,
+            ValidUntil = borrowing.ValidUntil
+        });
 
         return TypedResults.Ok(borrowing);
     }

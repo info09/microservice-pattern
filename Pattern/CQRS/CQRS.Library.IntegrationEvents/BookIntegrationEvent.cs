@@ -9,7 +9,7 @@ namespace CQRS.Library.IntegrationEvents
         public string Author { get; set; } = default!;
     }
 
-    public class BookCreatUpdatedIntegrationEvent : IntegrationEvent
+    public class BookUpdatedIntegrationEvent : IntegrationEvent
     {
         public Guid BookId { get; set; }
         public string Title { get; set; } = default!;

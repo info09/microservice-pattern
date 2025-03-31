@@ -67,7 +67,7 @@ namespace CQRS.Library.BookService.Apis
             services.Context.Update(existingBook);
             await services.Context.SaveChangesAsync();
 
-            await services.EventPublisher.PublishAsync(new BookCreatUpdatedIntegrationEvent
+            await services.EventPublisher.PublishAsync(new BookUpdatedIntegrationEvent
             {
                 BookId = book.Id,
                 Title = book.Title,
