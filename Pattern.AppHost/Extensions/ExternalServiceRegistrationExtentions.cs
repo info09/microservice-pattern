@@ -71,6 +71,13 @@ public static class ExternalServiceRegistrationExtentions
         borrowerService.WithParentRelationship(borrowingHistoryService);
         borrowingService.WithParentRelationship(borrowingHistoryService);
         #endregion
+
+        #region EventSourcing
+        var esAccountDb = postgres.AddDefaultDatabase<Projects.EventSourcing_Banking_AccountService>();
+        var esAccountService = builder.AddProjectWithPostfix<Projects.EventSourcing_Banking_AccountService>()
+            .WithReference(esAccountDb, Consts.DefaultDatabase)
+            .WaitFor(esAccountDb);
+        #endregion
         return builder;
     }
 

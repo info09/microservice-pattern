@@ -29,6 +29,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Library.BorrowingServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CQRS.Library.BorrowingHistoryService", "Pattern\CQRS\CQRS.Library.BorrowingHistory\CQRS.Library.BorrowingHistoryService.csproj", "{FE736AB5-E593-7E3A-89F8-1C19AB40A844}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourcing", "{D8472D96-07F9-4DB9-9866-EED942436309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing.Banking.AccountService", "Pattern\EventSourcing\EventSourcing.Banking.AccountService\EventSourcing.Banking.AccountService.csproj", "{38CAD11A-6666-4EDD-98CA-98EB64D3ADBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing.Banking.SeedWork", "Pattern\EventSourcing\EventSourcing.Banking.SeedWork\EventSourcing.Banking.SeedWork.csproj", "{1F4EB932-0240-485B-BC5A-647A72B2EF8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing.Banking.Infrastructure", "Pattern\EventSourcing\EventSourcing.Banking.Infrastructure\EventSourcing.Banking.Infrastructure.csproj", "{7747515E-1546-4CD0-B0E6-2CEFA928FC94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +87,18 @@ Global
 		{FE736AB5-E593-7E3A-89F8-1C19AB40A844}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE736AB5-E593-7E3A-89F8-1C19AB40A844}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE736AB5-E593-7E3A-89F8-1C19AB40A844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38CAD11A-6666-4EDD-98CA-98EB64D3ADBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38CAD11A-6666-4EDD-98CA-98EB64D3ADBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38CAD11A-6666-4EDD-98CA-98EB64D3ADBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38CAD11A-6666-4EDD-98CA-98EB64D3ADBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4EB932-0240-485B-BC5A-647A72B2EF8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4EB932-0240-485B-BC5A-647A72B2EF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4EB932-0240-485B-BC5A-647A72B2EF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4EB932-0240-485B-BC5A-647A72B2EF8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7747515E-1546-4CD0-B0E6-2CEFA928FC94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7747515E-1546-4CD0-B0E6-2CEFA928FC94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7747515E-1546-4CD0-B0E6-2CEFA928FC94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7747515E-1546-4CD0-B0E6-2CEFA928FC94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +110,10 @@ Global
 		{6C250E37-E779-4B27-973A-F6496B1AFDE8} = {C981A3AE-1A72-4D46-B427-F485883F910D}
 		{E8227E95-7DB7-4BDA-9585-E5A1D43BDBC5} = {C981A3AE-1A72-4D46-B427-F485883F910D}
 		{FE736AB5-E593-7E3A-89F8-1C19AB40A844} = {C981A3AE-1A72-4D46-B427-F485883F910D}
+		{D8472D96-07F9-4DB9-9866-EED942436309} = {CCE02C77-753D-41EC-987E-F2140E531640}
+		{38CAD11A-6666-4EDD-98CA-98EB64D3ADBB} = {D8472D96-07F9-4DB9-9866-EED942436309}
+		{1F4EB932-0240-485B-BC5A-647A72B2EF8F} = {D8472D96-07F9-4DB9-9866-EED942436309}
+		{7747515E-1546-4CD0-B0E6-2CEFA928FC94} = {D8472D96-07F9-4DB9-9866-EED942436309}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A41AA8F4-5B06-4475-BAB4-DEB6B484E181}
