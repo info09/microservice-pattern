@@ -21,18 +21,18 @@ public static class AccountApiExetensions
     public static RouteGroupBuilder MapAccountApi(this RouteGroupBuilder group)
     {
         group.MapPost("accounts", AccountApi.OpenAccount);
-        group.MapGet("accounts", AccountApi.GetAllAccount);
         group.MapGet("accounts/{id:guid}", AccountApi.GetAccountById);
         group.MapPut("accounts/{id:guid}/deposit", AccountApi.Deposit);
+        group.MapPut("accounts/{id:guid}/withdraw", AccountApi.Withdraw);
 
         return group;
     }
 }
 public static class AccountApi
 {
-    internal static async Task<Results<Ok<Account>, BadRequest, NotFound>> Deposit([AsParameters] ApiServices services, Guid id, decimal amount)
+    internal static async Task<Results<Ok, BadRequest, NotFound>> Deposit([AsParameters] ApiServices services, Guid id, DepositRequest request)
     {
-        if (id == Guid.Empty)
+        if (request == null || id == Guid.Empty)
             return TypedResults.BadRequest();
 
         var account = await services.EventStore.FindAsync<Account>(id, typeResolver: TypeResolver, cancellationToken: services.CancellationToken);
@@ -41,23 +41,11 @@ public static class AccountApi
             return TypedResults.NotFound();
         }
 
-        account.Deposit(amount);
-        var events = new List<Event>();
-        foreach (var item in account.PendingChanges)
-        {
-            events.Add(new Event
-            {
-                Id = item.EventId,
-                StreamId = account.Id,
-                Data = JsonSerializer.Serialize(item, item.GetType()),
-                Type = item.GetType().FullName ?? throw new Exception($"Could not get fullname of type {item.GetType()}"),
-                CreatedAtUtc = DateTime.UtcNow
-            });
-        }
+        account.Deposit(request.Amount);
 
-        await services.EventStore.AppendAsync(account.Id, Banking.Infrastructure.StreamStates.Existing, events, cancellationToken: services.CancellationToken);
+        await services.EventStore.AppendAsync(account, cancellationToken: services.CancellationToken);
 
-        return TypedResults.Ok(account);
+        return TypedResults.Ok();
     }
 
     internal static async Task<Results<Ok<Account>, BadRequest, NotFound>> GetAccountById([AsParameters] ApiServices services, Guid id)
@@ -72,12 +60,6 @@ public static class AccountApi
         }
 
         return TypedResults.Ok(account);
-    }
-
-    internal static async Task<Ok<List<Account>>> GetAllAccount([AsParameters] ApiServices services)
-    {
-        var accounts = await services.EventStore.FindAllAsync<Account>(typeResolver: TypeResolver, cancellationToken: services.CancellationToken);
-        return TypedResults.Ok(accounts);
     }
 
     internal static async Task<Results<Ok, BadRequest>> OpenAccount([AsParameters] ApiServices services, OpenAccountRequest request)
@@ -106,6 +88,24 @@ public static class AccountApi
         return TypedResults.Ok();
     }
 
+    internal static async Task<Results<Ok, BadRequest, NotFound>> Withdraw([AsParameters] ApiServices services, Guid id, WithdrawRequest withdraw)
+    {
+        if (withdraw == null || id == Guid.Empty)
+            return TypedResults.BadRequest();
+
+        var account = await services.EventStore.FindAsync<Account>(id, typeResolver: TypeResolver, cancellationToken: services.CancellationToken);
+        if (account == null)
+        {
+            return TypedResults.NotFound();
+        }
+
+        account.Withdraw(withdraw.Amount);
+
+        await services.EventStore.AppendAsync(account, cancellationToken: services.CancellationToken);
+
+        return TypedResults.Ok();
+    }
+
     private static Type TypeResolver(string typeName)
     {
         var type = Type.GetType(typeName);
@@ -121,4 +121,14 @@ public class OpenAccountRequest
     public decimal Balance { get; set; }
     public decimal CreditLimit { get; set; }
 
+}
+
+public record DepositRequest
+{
+    public decimal Amount { get; set; }
+}
+
+public record WithdrawRequest
+{
+    public decimal Amount { get; set; }
 }

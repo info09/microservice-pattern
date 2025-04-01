@@ -60,11 +60,6 @@ public class PostgresqlEventStore : IEventStore
         return stream.CurrentVersion;
     }
 
-    public Task<List<Event>> ReadAllAsync(CancellationToken cancellationToken = default)
-    {
-        return dbContext.Events.ToListAsync(cancellationToken);
-    }
-
     public Task<List<Event>> ReadAsync(Guid streamId, long? afterVersion = null, CancellationToken cancellationToken = default)
     {
         if (afterVersion == null)

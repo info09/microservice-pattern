@@ -8,6 +8,7 @@ public class Account : Aggregate
     public string AccountNumber { get; set; } = default!;
     public string Currency { get; set; } = default!;
     public decimal Balance { get; set; }
+    public decimal CurrentCredit { get; set; }
     public decimal CreditLimit { get; set; }
     public bool IsClosed { get; set; }
     public DateTime CreatedAtUtc { get; set; }
@@ -126,7 +127,12 @@ public class Account : Aggregate
             throw new InvalidOperationException("Invalid account id");
         }
 
-        if (Balance - @event.Amount > -CreditLimit)
+        if (IsClosed)
+        {
+            throw new InvalidOperationException("Account is closed");
+        }
+
+        if (Balance + (CreditLimit - CurrentCredit) < @event.Amount)
         {
             throw new InvalidOperationException("Insufficient funds");
         }
